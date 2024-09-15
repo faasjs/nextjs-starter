@@ -1,6 +1,6 @@
 {
   "name": "faasjs-nextjs-starter-dev",
-  "image": "oven/bun",
+  "image": "faasjs/vscode",
   "forwardPorts": [3000],
   "portsAttributes": {
     "3000": {
@@ -13,6 +13,9 @@
   },
   "customizations": {
     "codespaces": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/zsh"
+      },
       "extensions": [
         "zfben.faasjs-snippets",
         "streetsidesoftware.code-spell-checker",
