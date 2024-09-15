@@ -1,0 +1,6 @@
+{
+  "extends": ["@faasjs/lint/biome"],
+  "files": {
+    "ignore": ["node_modules", ".next"]
+  }
+}
