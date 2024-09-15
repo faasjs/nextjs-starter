@@ -1,28 +1,24 @@
 {
-	"name": "faasjs-nextjs-starter-dev",
-	"forwardPorts": [
-		3000
-	],
-	"portsAttributes": {
+  "name": "faasjs-nextjs-starter-dev",
+  "image": "oven/bun",
+  "forwardPorts": [3000],
+  "portsAttributes": {
     "3000": {
       "label": "web",
       "onAutoForward": "openPreview"
     }
   },
-	"otherPortsAttributes": {
+  "otherPortsAttributes": {
     "onAutoForward": "ignore"
   },
-	"customizations": {
-		"settings": {
-			"onCreateCommand": "curl -fsSL https://bun.sh/install | bash"
-		},
-		"codespaces": {
-			"extensions": [
-				"zfben.faasjs-snippets",
-				"streetsidesoftware.code-spell-checker",
-				"biomejs.biome"
-			]
-		}
-	},
+  "customizations": {
+    "codespaces": {
+      "extensions": [
+        "zfben.faasjs-snippets",
+        "streetsidesoftware.code-spell-checker",
+        "biomejs.biome"
+      ]
+    }
+  },
   "waitFor": "onCreateCommand"
 }
