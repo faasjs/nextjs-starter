@@ -48,7 +48,7 @@ export const TodoList = withFaasData(
               <PlusCircle className='w-5 h-5' />
             </Button>
           </div>
-          {props.data.map(task => (
+          {props.data?.map(task => (
             <div
               key={task.id}
               className='flex items-center space-x-2 bg-white bg-opacity-50 rounded-md p-2'

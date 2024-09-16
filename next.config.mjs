@@ -3,7 +3,7 @@ const nextConfig = {
   serverExternalPackages: ['knex'],
   experimental: {
     turbo: {},
-    serverActions: { allowedOrigins: ['*'] },
+    serverActions: { allowedOrigins: ['localhost:3000', '*.github.dev'] },
   },
 }
 
