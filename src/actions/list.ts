@@ -1,9 +1,5 @@
 'use server'
-
-import type { TodoItem } from '@/utils/db'
 import { query } from '@faasjs/knex'
-import { useFuncWithNextJsPlugin } from '@faasjs/nextjs/server'
+import { useFuncWithNextJsPlugin } from '@faasjs/nextjs'
 
-export const list = useFuncWithNextJsPlugin<TodoItem[]>(async () =>
-  query('todo_items')
-)
+export const list = useFuncWithNextJsPlugin(async () => query('todo_items'))

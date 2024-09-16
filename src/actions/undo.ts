@@ -1,7 +1,7 @@
 'use server'
 
 import { query } from '@faasjs/knex'
-import { useFuncWithNextJsPlugin } from '@faasjs/nextjs/server'
+import { useFuncWithNextJsPlugin } from '@faasjs/nextjs'
 
 export const undo = useFuncWithNextJsPlugin<{ id: string }>(
   async ({ params }) =>

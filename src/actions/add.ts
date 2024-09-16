@@ -1,7 +1,7 @@
 'use server'
 
 import { query } from '@faasjs/knex'
-import { useFuncWithNextJsPlugin } from '@faasjs/nextjs/server'
+import { useFuncWithNextJsPlugin } from '@faasjs/nextjs'
 import { randomUUID } from 'node:crypto'
 
 export const add = useFuncWithNextJsPlugin<{ title: string }>(

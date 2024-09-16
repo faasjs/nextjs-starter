@@ -1,100 +1,78 @@
 'use client'
 
-import { Button, Input, List, Modal, Skeleton, Typography, message } from 'antd'
-import { CheckOutlined, UndoOutlined } from '@ant-design/icons'
-import { withFaasData } from '@faasjs/ant-design'
+import { withFaasData } from '@faasjs/react'
 import { list } from '@/actions/list'
-import type { TodoItem } from '@/utils/db'
 import { add } from '@/actions/add'
 import { done } from '@/actions/done'
 import { undo } from '@/actions/undo'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { CheckCircle, PlusCircle, RotateCcw } from 'lucide-react'
+import { useState } from 'react'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export const TodoList = withFaasData(
   props => {
-    const [modal, contextHolder] = Modal.useModal()
+    const [newTask, setNewTask] = useState('')
 
     return (
-      <div
-        style={{
-          maxWidth: '500px',
-          margin: '24px auto',
-        }}
-      >
-        <Typography.Title>FaasJS Todo Demo</Typography.Title>
-        <Button
-          type='primary'
-          onClick={() => {
-            let title: string
-            modal.confirm({
-              title: 'Add a new item',
-              content: (
-                <Input
-                  placeholder='Title'
-                  onChange={e => (title = e.target.value?.trim())}
-                />
-              ),
-              okText: 'Add',
-              async onOk() {
-                if (!title) {
-                  message.error('Title is required')
-                  return
-                }
-                await add({ title })
-                // await faas('todo/item/add', { title })
-                await props.reload()
-              },
-              cancelText: 'Cancel',
-            })
-          }}
-        >
-          New
-        </Button>
-        <List<TodoItem>
-          dataSource={props.data}
-          rowKey={item => item.id}
-          renderItem={item => (
-            <List.Item
-              actions={[
-                item.status === 'pending' ? (
-                  <CheckOutlined
-                    key='done'
-                    style={{
-                      cursor: 'pointer',
-                      color: 'var(--ant-success-color)',
-                    }}
-                    onClick={async () =>
-                      done({ id: item.id }).finally(async () => props.reload())
-                    }
-                  />
-                ) : (
-                  <UndoOutlined
-                    key='undo'
-                    style={{ cursor: 'pointer' }}
-                    onClick={async () =>
-                      undo({ id: item.id }).finally(async () => props.reload())
-                    }
-                  />
-                ),
-              ]}
+      <div className='min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 flex items-center justify-center p-4'>
+        <div className='w-full max-w-md bg-white bg-opacity-20 backdrop-blur-lg rounded-lg shadow-lg p-6 space-y-6'>
+          <h1 className='text-3xl font-bold text-center text-white'>
+            FaasJS todo-list Demo
+          </h1>
+          <div className='flex space-x-2'>
+            <Input
+              type='text'
+              placeholder='Add a new task'
+              value={newTask}
+              onChange={e => setNewTask(e.target.value)}
+              onKeyUp={e => e.key === 'Enter' && add({ title: newTask }).then(() => {
+                setNewTask('')
+                props.reload()
+              })}
+              className='bg-white bg-opacity-50 border-none placeholder-gray-500 text-gray-800'
+            />
+            <Button
+              onClick={() => add({ title: newTask }).then(() => {
+                setNewTask('')
+                props.reload()
+              })}
+              className='bg-purple-600 hover:bg-purple-700'
             >
-              <Typography.Text
-                type={item.status === 'done' ? 'secondary' : undefined}
-                style={{
-                  textDecoration:
-                    item.status === 'done' ? 'line-through' : 'none',
-                }}
+              <PlusCircle className='w-5 h-5' />
+            </Button>
+          </div>
+          {props.data.map(task => (
+            <div
+              key={task.id}
+              className='flex items-center space-x-2 bg-white bg-opacity-50 rounded-md p-2'
+            >
+              <span
+                className={`flex-grow ${task.status === 'done' ? 'line-through text-gray-500' : 'text-gray-800'}`}
               >
-                {item.title}
-              </Typography.Text>
-            </List.Item>
-          )}
-        />
-        {contextHolder}
+                {task.title}
+              </span>
+              <Button
+                onClick={() => task.status === 'done' ? undo({ id: task.id }).then(props.reload) : done({ id: task.id }).then(props.reload)}
+                variant='ghost'
+                size='sm'
+                className={task.status === 'done' ? 'text-green-600' : 'text-gray-600'}
+              >
+                {task.status === 'done' ? (
+                  <RotateCcw className='w-5 h-5' />
+                ) : (
+                  <CheckCircle className='w-5 h-5' />
+                )}
+              </Button>
+            </div>
+          ))}
+        </div>
       </div>
     )
   },
   {
     action: list,
-    loading: <Skeleton active />,
+    fallback: <Skeleton />,
   }
 )
