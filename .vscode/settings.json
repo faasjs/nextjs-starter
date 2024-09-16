@@ -51,12 +51,6 @@
   },
   "files.eol": "\n",
   "terminal.integrated.scrollback": 10000,
-  "cSpell.words": [
-    "antd",
-    "codespaces",
-    "faas",
-    "faasjs",
-    "nextjs"
-  ],
+  "cSpell.words": ["antd", "codespaces", "faas", "faasjs", "nextjs"],
   "typescript.tsdk": "node_modules/typescript/lib"
 }

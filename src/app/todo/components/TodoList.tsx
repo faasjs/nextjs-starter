@@ -27,17 +27,22 @@ export const TodoList = withFaasData(
               placeholder='Add a new task'
               value={newTask}
               onChange={e => setNewTask(e.target.value)}
-              onKeyUp={e => e.key === 'Enter' && add({ title: newTask }).then(() => {
-                setNewTask('')
-                props.reload()
-              })}
+              onKeyUp={e =>
+                e.key === 'Enter' &&
+                add({ title: newTask }).then(() => {
+                  setNewTask('')
+                  props.reload()
+                })
+              }
               className='bg-white bg-opacity-50 border-none placeholder-gray-500 text-gray-800'
             />
             <Button
-              onClick={() => add({ title: newTask }).then(() => {
-                setNewTask('')
-                props.reload()
-              })}
+              onClick={() =>
+                add({ title: newTask }).then(() => {
+                  setNewTask('')
+                  props.reload()
+                })
+              }
               className='bg-purple-600 hover:bg-purple-700'
             >
               <PlusCircle className='w-5 h-5' />
@@ -54,10 +59,16 @@ export const TodoList = withFaasData(
                 {task.title}
               </span>
               <Button
-                onClick={() => task.status === 'done' ? undo({ id: task.id }).then(props.reload) : done({ id: task.id }).then(props.reload)}
+                onClick={() =>
+                  task.status === 'done'
+                    ? undo({ id: task.id }).then(props.reload)
+                    : done({ id: task.id }).then(props.reload)
+                }
                 variant='ghost'
                 size='sm'
-                className={task.status === 'done' ? 'text-green-600' : 'text-gray-600'}
+                className={
+                  task.status === 'done' ? 'text-green-600' : 'text-gray-600'
+                }
               >
                 {task.status === 'done' ? (
                   <RotateCcw className='w-5 h-5' />

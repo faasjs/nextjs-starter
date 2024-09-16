@@ -8,7 +8,9 @@ export default function Home() {
         <h1 className='text-3xl font-bold text-center text-white'>
           Welcome to <br /> FaasJS & Next.js
         </h1>
-        <Button asChild className='bg-purple-600 hover:bg-purple-700'><Link href='/todo'>Open todo-list Demo</Link></Button>
+        <Button asChild className='bg-purple-600 hover:bg-purple-700'>
+          <Link href='/todo'>Open todo-list Demo</Link>
+        </Button>
       </div>
     </div>
   )

@@ -2,9 +2,8 @@
 const nextConfig = {
   serverExternalPackages: ['knex'],
   experimental: {
-    turbo: {
-      treeShaking: true,
-    },
+    turbo: {},
+    serverActions: { allowedOrigins: ['*'] },
   },
 }
 
